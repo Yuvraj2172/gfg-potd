@@ -8,16 +8,14 @@ class Solution{
     public:
     int equilibriumPoint(long long a[], int n) {
         if(n==1)return 1;
-        long long pre[n];
-        pre[0] = a[0];
-        long long suff[n];
-        suff[n-1] = a[n-1];
-        for(int i=1; i<n;i++)pre[i] = a[i] + pre[i-1];
-        for(int i = n-2; i>=0; i--)suff[i] = suff[i+1] + a[i];
-        for(int i =1 ; i<n-1; i++){
-            if(pre[i] == suff[i])return (i+1);
+        int left(0), right(0), pivot(0);
+        for(int i=1; i<n;i++)right += a[i];
+        while(pivot < n-1 && left!=right){
+            pivot++;
+            right -= a[pivot];
+            left += a[pivot-1];
         }
-        return -1;
+        return (left == right) ? (pivot+1) : -1;
     }
  
 };
